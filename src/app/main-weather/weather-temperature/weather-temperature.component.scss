@@ -1,0 +1,14 @@
+.weather-temperature {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font-size: 8rem;
+    }
+
+    i.weather-icon {
+        font-size: 5rem;
+    }    
+}

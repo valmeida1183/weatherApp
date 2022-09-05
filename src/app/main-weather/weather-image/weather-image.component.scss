@@ -1,0 +1,13 @@
+.weather-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    i.weather-icon {
+        font-size: 10rem;
+    }
+
+    span.weather-desc {
+        font-size: 2rem;
+    }
+}

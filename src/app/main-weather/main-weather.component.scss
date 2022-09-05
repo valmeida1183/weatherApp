@@ -1,0 +1,16 @@
+.weather-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+
+    .weather-body {
+        color: #fff;
+
+        .weather-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;            
+        }
+    }
+}
