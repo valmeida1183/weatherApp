@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WeatherResult } from '../models/weather-result.model';
 import { WeatherDataService } from '../services/weather-data.service';
@@ -9,10 +9,12 @@ import { WeatherDataService } from '../services/weather-data.service';
   styleUrls: ['./main-weather.component.scss'],
 })
 export class MainWeatherComponent implements OnInit {
-  weatherResult$ = new Observable<WeatherResult>();
-  constructor(private weatherDataService: WeatherDataService) {}
+  @Input()
+  weatherResult: WeatherResult | null | undefined;
+
+  constructor(public weatherDataService: WeatherDataService) {}
 
   ngOnInit(): void {
-    this.weatherResult$ = this.weatherDataService.findCurrentLocation();
+    //this.weatherDataService.findCurrentLocation();
   }
 }

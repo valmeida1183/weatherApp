@@ -1,9 +1,15 @@
 <div class="weather-container">
-    <div class="weather-body" *ngIf="(weatherResult$ | async) as weatherResult">
+    <div class="weather-body" *ngIf="weatherResult; else loading">
         <app-weather-title [weatherResult]="weatherResult"></app-weather-title>
         <div class="weather-info">
             <app-weather-image [weatherResult]="weatherResult"></app-weather-image>
             <app-weather-temperature [weatherResult]="weatherResult"></app-weather-temperature>
         </div>
     </div>
+
+    <ng-template #loading>
+        <div class="loader-status">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>   
 </div>

@@ -2,10 +2,10 @@
   <nav class="navbar">
 
   </nav>
-  <section class="content">
-   <app-main-weather></app-main-weather>
+  <section class="content" [ngClass]="backgroundClass">
+   <app-main-weather [weatherResult]="weatherResult"></app-main-weather>
   </section>
   <footer class="footer">
-    <span>Weather {{currentYear}}. All Rights Reserved.</span>
+    <span>Weather App {{currentYear}}. All Rights Reserved.</span>
   </footer>
 </div>

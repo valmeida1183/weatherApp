@@ -6,11 +6,45 @@
 
     .weather-body {
         color: #fff;
+        background: rgba(248, 248, 248, 0.5);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 30px;
 
         .weather-info {
+            margin-top: 2rem;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;            
+        }       
+    }
+
+    .loader-status {
+        width: 500px;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ::ng-deep {
+
+            .mat-progress-spinner,
+            .mat-spinner {
+                circle {
+                    stroke: #fff;
+                }
+            }
         }
     }
+}
+ 
+
+@media screen and (max-width: 768px) {
+    .weather-info {           
+            flex-direction: column;            
+        }
 }
