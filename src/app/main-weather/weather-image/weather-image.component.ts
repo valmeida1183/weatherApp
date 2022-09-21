@@ -12,18 +12,11 @@ export class WeatherImageComponent implements OnInit {
   weatherResult!: WeatherResult;
 
   iconClass: string = '';
-  description: string = '';
 
   constructor(private iconMapperService: IconMapperService) {}
 
   ngOnInit(): void {
     const { icon: iconKey, description } = this.weatherResult.weather[0];
-
     this.iconClass = this.iconMapperService.iconMap.get(iconKey) ?? '';
-    this.description = this.capitalizeFirstLetter(description);
-  }
-
-  private capitalizeFirstLetter(value: string) {
-    return value.charAt(0).toUpperCase() + value.slice(1);
   }
 }

@@ -4,9 +4,8 @@
     align-items: center;
     padding: 30px;
 
-    .weather-body {
-        color: #fff;
-        background: rgba(248, 248, 248, 0.5);
+    .weather-body {        
+        background: rgba(248, 248, 248, 0.3);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
@@ -31,7 +30,6 @@
         align-items: center;
 
         ::ng-deep {
-
             .mat-progress-spinner,
             .mat-spinner {
                 circle {

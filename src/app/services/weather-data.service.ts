@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IpInfo } from '../models/ip-info.model';
 import { SearchResult } from '../models/search-result.model';
@@ -36,8 +36,12 @@ export class WeatherDataService {
       );
   }
 
-  searchLocation(searchTerm: string): Observable<SearchResult> {
-    return this.http.get<SearchResult>(`${this.openWeatherGeoUrl}/direct`, {
+  searchLocation(searchTerm?: string | null): Observable<SearchResult[]> {
+    if (!searchTerm) {
+      return of([]);
+    }
+
+    return this.http.get<SearchResult[]>(`${this.openWeatherGeoUrl}/direct`, {
       params: new HttpParams()
         .set('q', searchTerm)
         .set('limit', '5')

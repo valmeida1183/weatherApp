@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'Weather App';
   currentYear = new Date().getFullYear();
   weatherResult: WeatherResult | undefined;
-  backgroundClass = 'shiny';
+  backgroundClass = 'default';
 
   constructor(
     private weatherDataService: WeatherDataService,
@@ -24,9 +24,8 @@ export class AppComponent implements OnInit {
     this.weatherDataService.findCurrentLocation().subscribe((weatherResult) => {
       const { icon: iconKey } = weatherResult.weather[0];
       this.weatherResult = weatherResult;
-      // this.backgroundClass =
-      //   this.backgroundMappserService.backgroundMap.get(iconKey) ?? 'shiny';
-      this.backgroundClass = 'shiny';
+      this.backgroundClass =
+        this.backgroundMappserService.backgroundMap.get(iconKey) ?? 'default';
     });
   }
 }

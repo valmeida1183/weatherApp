@@ -1,0 +1,13 @@
+<div class="search-bar">
+    <mat-form-field class="search-bar" appearance="legacy">
+        <mat-label>Search for city</mat-label>
+        <mat-icon matPrefix>search &nbsp;</mat-icon>
+        <input matInput type="text" name="search" placeholder="Search by the name of city" [formControl]="searchControl"
+            [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.name}} - {{option.country}} - {{option.state}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>

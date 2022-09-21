@@ -1,6 +1,9 @@
 nav.navbar {
-   height: 7vh; 
-   background-color: #182852;   
+   background-color: #fff;
+   height: 10vh;   
+   display: flex;
+   justify-content: center;
+   align-items: flex-end; 
 }
 
 .content {
@@ -11,44 +14,58 @@ nav.navbar {
 }
 
 .footer {
-    height: 13vh;
+    height: 10vh;
     color: #356CB1;
     background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 5rem;
-
-    // span {
-    //     margin-top: 20px;
-    // }
+    min-height: 5rem;   
 }
 
-.rainy {
-    background-image: url('../assets/svg/rainy.svg');
+.default {
+    background-image: none;
+    background-color: #356CB1;
+}
+
+.day-rainy {
+    background-image: url('../assets/svg/day-rainy.svg');
+    color: #fff
+}
+
+.night-rainy {
+    background-image: url('../assets/svg/night-rainy.svg');
+    color: #fff
+}
+
+.day-cloudy {
+    background-image: url('../assets/svg/day-cloudy.svg');
+    color: #898E99;
+}
+
+.night-cloudy {
+    background-image: url('../assets/svg/night-cloudy.svg');
+    color: #fff
 }
 
 .shiny {
     background-image: url('../assets/svg/shiny.svg');
-}
-
-.cloudy {
-    background-image: url('../assets/svg/cloudy.svg');
+    color: #fff;
 }
 
 .night {
-    background-image: url('../assets/svg/night.svg');   
+    background-image: url('../assets/svg/night.svg');
+    color: #fff;
 }
 
 .snow {
     background-image: url('../assets/svg/snow.svg');
+    color: #fff
 }
 
 @media screen and (max-width: 768px) {
     .content {
         height: 85vh;
-        background-image: none;
-        background-color: #1E3266; 
     }
 
     .footer {
