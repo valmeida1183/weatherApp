@@ -21,11 +21,15 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.weatherDataService.findCurrentLocation().subscribe((weatherResult) => {
-      const { icon: iconKey } = weatherResult.weather[0];
-      this.weatherResult = weatherResult;
-      this.backgroundClass =
-        this.backgroundMappserService.backgroundMap.get(iconKey) ?? 'default';
+    this.weatherDataService.weatherResult$.subscribe((weatherResult) => {
+      if (weatherResult) {
+        const { icon: iconKey } = weatherResult.weather[0];
+        this.weatherResult = weatherResult;
+        this.backgroundClass =
+          this.backgroundMappserService.backgroundMap.get(iconKey) ?? 'default';
+      }
     });
+
+    this.weatherDataService.findCurrentLocationWeather();
   }
 }

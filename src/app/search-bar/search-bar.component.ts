@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { iif, Observable, of } from 'rxjs';
 import {
   debounceTime,
@@ -30,7 +31,7 @@ export class SearchBarComponent implements OnInit {
       }),
       distinctUntilChanged(),
       debounceTime(2000),
-      switchMap((value) => this.weatherDataService.searchLocation(value)),
+      switchMap((value) => this.weatherDataService.searchLocations(value)),
       tap((response) => {
         console.log(response);
       })
@@ -43,5 +44,16 @@ export class SearchBarComponent implements OnInit {
 
   onLeaveInput(): void {
     this.filteredOptions = of();
+  }
+
+  onOptionSelected(selectedOption: MatAutocompleteSelectedEvent): void {
+    console.log(selectedOption);
+    const searchResult: SearchResult = selectedOption.option.value;
+
+    if (searchResult) {
+      const { lat: latitude, lon: longitude } = searchResult;
+
+      this.weatherDataService.findLocationWeather(latitude, longitude);
+    }
   }
 }

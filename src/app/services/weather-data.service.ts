@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IpInfo } from '../models/ip-info.model';
 import { SearchResult } from '../models/search-result.model';
@@ -16,27 +16,46 @@ export class WeatherDataService {
   private readonly openWeatherGeoUrl = 'https://api.openweathermap.org/geo/1.0';
   private readonly openWeatherApiKey = 'fdec262a4a83aa0937c2c9ca1d1103a9';
 
-  weatherResult$ = new Observable<WeatherResult>();
+  weatherResultSubject = new Subject<WeatherResult>();
+  weatherResult$ = this.weatherResultSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  findCurrentLocation(): Observable<WeatherResult> {
-    return this.http
+  findCurrentLocationWeather(): void {
+    this.http
       .get<IpInfo>(this.ipInfoUrl, {
         params: new HttpParams().set('token', this.ipInfoToken),
       })
       .pipe(
         switchMap((ipInfo: IpInfo, index: number) => {
           const location = ipInfo.loc.split(',');
-          const latitude = location[0];
-          const longitude = location[1];
+          const latitude = Number(location[0]);
+          const longitude = Number(location[1]);
 
-          return this.getWeatherResult(latitude, longitude);
+          return this.getLocationWeatherResult(latitude, longitude);
         })
-      );
+      )
+      .subscribe((weatherResult: WeatherResult) => {
+        this.weatherResultSubject.next(weatherResult);
+      });
   }
 
-  searchLocation(searchTerm?: string | null): Observable<SearchResult[]> {
+  findLocationWeather(latitude: number, longitude: number): void {
+    this.http
+      .get<WeatherResult>(`${this.openWeatherUrl}/weather`, {
+        params: new HttpParams()
+          .set('lat', latitude)
+          .set('lon', longitude)
+          .set('units', 'metric')
+          .set('lang', 'pt_br')
+          .set('appid', this.openWeatherApiKey),
+      })
+      .subscribe((weatherResult: WeatherResult) => {
+        this.weatherResultSubject.next(weatherResult);
+      });
+  }
+
+  searchLocations(searchTerm?: string | null): Observable<SearchResult[]> {
     if (!searchTerm) {
       return of([]);
     }
@@ -49,9 +68,9 @@ export class WeatherDataService {
     });
   }
 
-  private getWeatherResult(
-    latitude: string,
-    longitude: string
+  private getLocationWeatherResult(
+    latitude: number,
+    longitude: number
   ): Observable<WeatherResult> {
     return this.http.get<WeatherResult>(`${this.openWeatherUrl}/weather`, {
       params: new HttpParams()

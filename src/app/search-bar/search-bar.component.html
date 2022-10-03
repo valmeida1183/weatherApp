@@ -4,7 +4,7 @@
         <mat-icon matPrefix>search &nbsp;</mat-icon>
         <input matInput type="text" name="search" placeholder="Search by the name of city" [formControl]="searchControl"
             [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)" >
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{option.name}} - {{option.country}} - {{option.state}}
             </mat-option>
